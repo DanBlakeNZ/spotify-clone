@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 const clientId = "410437905f1c4778b5e912f65cc0bfb5";
-const redirectUri = "http://localhost:9000";
+const redirectUri = "http://localhost:9000/dashboard";
 const scopes = ["user-read-currently-playing", "user-read-playback-state"];
 const url =
   "https://accounts.spotify.com/authorize" +
