@@ -1,6 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "normalize.css";
+import App from "./components/App";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import NotFound from "./components/NotFound";
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const routing = (
+  <Router>
+    <div>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
+  </Router>
+);
+
+ReactDOM.render(routing, document.getElementById("app"));

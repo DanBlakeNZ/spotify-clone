@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import Login from "./Login";
 
-class App extends Component {
+class NotFound extends Component {
   render() {
     return (
       <div>
-        <h3>I'm App.js</h3>
+        <p>Page Not Found</p>
       </div>
     );
   }
 }
 
-export default App;
+export default NotFound;
