@@ -1,16 +1,27 @@
 import React, { Component } from "react";
-import queryString from "query-string";
+import * as SpotifyFunctions from "../helpers/spotifyFunctions.js";
+import Login from "./Login";
 
 class Dashboard extends Component {
-  componentDidMount() {
-    const parsed = queryString.parse(this.props.location.search);
-    console.log(parsed);
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedInToSpotify: false,
+      accessToken: null
+    };
   }
 
+  componentDidMount() {
+    const accessToken = SpotifyFunctions.checkUrlForSpotifyAccessToken();
+    accessToken
+      ? this.setState({ loggedInToSpotify: true, accessToken: accessToken })
+      : this.setState({ loggedInToSpotify: false, accessToken: null });
+  }
   render() {
     return (
       <div>
-        <p>I'm the dashboard</p>
+        <p>Welcome to Spotify Clone</p>
+        {!this.state.loggedInToSpotify ? <Login /> : "Logged in"}
       </div>
     );
   }
