@@ -49,7 +49,9 @@ function getHashParams() {
 }
 
 export function setAccessToken(accessToken) {
-  //since using spotifyApi as helper library you can set the access code once
-  //you get it and then not have to include it in every request
   spotifyApi.setAccessToken(accessToken);
+}
+
+async function getUserDetails() {
+  const userInfoResponse = await spotifyApi.getMe();
 }
