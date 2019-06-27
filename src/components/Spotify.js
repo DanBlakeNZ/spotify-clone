@@ -8,10 +8,10 @@ class Spotify extends Component {
 
   getMyDetails = () => {
     SpotifyFunctions.getUserDetails().then(
-      function(data) {
+      data => {
         console.log("Artist albums", data);
       },
-      function(err) {
+      err => {
         console.error(err);
       }
     );

@@ -15,7 +15,7 @@ class App extends Component {
   componentDidMount() {
     const accessToken = SpotifyFunctions.checkUrlForSpotifyAccessToken();
     accessToken
-      ? this.setState({ loggedInToSpotify: true, accessToken: accessToken })
+      ? this.setState({ loggedInToSpotify: true, accessToken })
       : this.setState({ loggedInToSpotify: false, accessToken: null });
   }
 

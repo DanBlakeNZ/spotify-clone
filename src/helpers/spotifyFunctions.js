@@ -4,41 +4,34 @@ import secrets from "../../secrets";
 const spotifyApi = new Spotify();
 
 export function redirectUrlToSpotifyForLogin() {
-  const CLIENT_ID = secrets.CLIENT_ID; // Need to change to environment variables for production.
-  const REDIRECT_URI = "http://localhost:9000"; // Need to change to environment variables for production.
-  const scopes = [
-    "user-modify-playback-state",
-    "user-library-read",
-    "user-library-modify",
-    "playlist-read-private",
-    "playlist-modify-public",
-    "playlist-modify-private"
-  ];
-  return (
-    "https://accounts.spotify.com/authorize?client_id=" +
-    CLIENT_ID +
-    "&redirect_uri=" +
-    encodeURIComponent(REDIRECT_URI) +
-    "&scope=" +
-    encodeURIComponent(scopes.join(" ")) +
-    "&response_type=token"
-  );
+  const { CLIENT_ID } = secrets, // Need to change to environment variables for production.
+    REDIRECT_URI = "http://localhost:9000", // Need to change to environment variables for production.
+    scopes = [
+      "user-modify-playback-state",
+      "user-library-read",
+      "user-library-modify",
+      "playlist-read-private",
+      "playlist-modify-public",
+      "playlist-modify-private"
+    ];
+  return `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
+    REDIRECT_URI
+  )}&scope=${encodeURIComponent(scopes.join(" "))}&response_type=token`;
 }
 
 export function checkUrlForSpotifyAccessToken() {
-  const params = getHashParams();
-  const accessToken = params.access_token;
+  const params = getHashParams(),
+    accessToken = params.access_token;
   if (!accessToken) {
     return false;
-  } else {
-    return accessToken;
   }
+  return accessToken;
 }
 
 function getHashParams() {
-  //helper function to parse the query string that spotify sends back when you log in
-  var hashParams = {};
-  var e,
+  // Helper function to parse the query string that spotify sends back when you log in
+  let hashParams = {},
+    e,
     r = /([^&;=]+)=?([^&;]*)/g,
     q = window.location.hash.substring(1);
   // eslint-disable-next-line
