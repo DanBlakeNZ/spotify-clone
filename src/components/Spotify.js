@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import * as SpotifyFunctions from "../helpers/spotifyFunctions.js";
 
 class Spotify extends Component {
@@ -9,7 +10,7 @@ class Spotify extends Component {
   getMyDetails = () => {
     SpotifyFunctions.getUserDetails().then(
       data => {
-        console.log("Artist albums", data);
+        console.log("My Details", data);
       },
       err => {
         console.error(err);
@@ -18,7 +19,6 @@ class Spotify extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <p>Spotify Dashboard</p>
@@ -27,5 +27,9 @@ class Spotify extends Component {
     );
   }
 }
+
+Spotify.propTypes = {
+  accessToken: PropTypes.string
+};
 
 export default Spotify;
