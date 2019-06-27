@@ -5,6 +5,7 @@ class NotFound extends Component {
     return (
       <div>
         <p>Page Not Found</p>
+        <a href="/">Home</a>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as SpotifyFunctions from "../helpers/spotifyFunctions.js";
 import Login from "./Login";
-import Dashboard from "./Dashboard.js";
+import Spotify from "./Spotify.js";
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +23,11 @@ class App extends Component {
     return (
       <div>
         <p>Welcome to Spotify Clone</p>
-        {!this.state.loggedInToSpotify ? <Login /> : <Dashboard />}
+        {!this.state.loggedInToSpotify ? (
+          <Login />
+        ) : (
+          <Spotify accessToken={this.state.accessToken} />
+        )}
       </div>
     );
   }

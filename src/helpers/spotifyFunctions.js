@@ -4,8 +4,8 @@ import secrets from "../../secrets";
 const spotifyApi = new Spotify();
 
 export function redirectUrlToSpotifyForLogin() {
-  const CLIENT_ID = secrets.CLIENT_ID;
-  const REDIRECT_URI = "http://localhost:9000/dashboard";
+  const CLIENT_ID = secrets.CLIENT_ID; // Need to change to environment variables for production.
+  const REDIRECT_URI = "http://localhost:9000"; // Need to change to environment variables for production.
   const scopes = [
     "user-modify-playback-state",
     "user-library-read",
@@ -52,6 +52,6 @@ export function setAccessToken(accessToken) {
   spotifyApi.setAccessToken(accessToken);
 }
 
-async function getUserDetails() {
-  const userInfoResponse = await spotifyApi.getMe();
+export function getUserDetails() {
+  return spotifyApi.getMe();
 }
