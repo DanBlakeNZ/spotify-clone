@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import * as SpotifyFunctions from "../helpers/spotifyFunctions.js";
+import NavigationBar from "./NavigationBar.js";
 
 class Spotify extends Component {
   componentDidMount() {
@@ -21,8 +22,7 @@ class Spotify extends Component {
   render() {
     return (
       <div>
-        <p>Spotify Dashboard</p>
-        <button onClick={this.getMyDetails}>Get My Details</button>
+        <NavigationBar />
       </div>
     );
   }
