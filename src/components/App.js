@@ -3,20 +3,30 @@ import { createGlobalStyle } from "styled-components";
 import * as SpotifyFunctions from "../helpers/spotifyFunctions.js";
 import Login from "./Login";
 import Spotify from "./Spotify.js";
-import CircularBook from "../fonts/Circular-Book-400.woff2";
+import CircularBook400 from "../fonts/Circular-Book-400.woff2";
+import CircularBold700 from "../fonts/Circular-Bold-700.woff2";
 
 const GlobalStyle = createGlobalStyle`
-@font-face {
-  font-family: 'CircularBook';
-  src: url('./dist/${CircularBook}') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
+  @font-face {
+    font-family: 'CircularBook400';
+    src: url('./dist/${CircularBook400}') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'CircularBold700';
+    src: url('./dist/${CircularBold700}') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
   *{
     margin:0;
     padding:0;
     box-sizing: border-box;
     vertical-align: baseline;
+    font-smooth: antialiased;
   }
 
    html {
@@ -27,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body,button,input {
-    font-family: 'CircularBook';
+    font-family: 'CircularBook400';
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -54,7 +64,11 @@ const GlobalStyle = createGlobalStyle`
 
   a:focus,a:hover {
       border-bottom-color: currentcolor;
-}
+  }
+
+  ul, ol{
+    list-style: none;
+  }
 
 `;
 
