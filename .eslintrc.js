@@ -18,6 +18,7 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
-    "react/jsx-uses-react": 0
+    "react/jsx-uses-react": 0,
+    "react/prop-types": 0
   }
 };

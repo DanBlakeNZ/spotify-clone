@@ -5,7 +5,7 @@ const spotifyApi = new Spotify();
 
 export function redirectUrlToSpotifyForLogin() {
   const { CLIENT_ID } = secrets, // Need to change to environment variables for production.
-    REDIRECT_URI = "http://localhost:9000", // Need to change to environment variables for production.
+    REDIRECT_URI = "http://localhost:9000/browse", // Need to change to environment variables for production.
     scopes = [
       "user-modify-playback-state",
       "user-library-read",

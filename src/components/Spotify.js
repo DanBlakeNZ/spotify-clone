@@ -20,11 +20,7 @@ class Spotify extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <NavigationBar />
-      </div>
-    );
+    return <div>Spotify</div>;
   }
 }
 
