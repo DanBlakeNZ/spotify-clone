@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import styleVariables from "../styles/styleVariables";
-import SVG from "react-inlinesvg";
+import SpotifyLogo from "../images/spotify_text_logo.svg";
 
 const NavBarWrapper = styled.div`
   background: ${styleVariables.spotifyBlack};
@@ -39,7 +39,7 @@ class NavigationBar extends Component {
         <NavBar>
           <LogoContainer>
             <LogoWrapper>
-              <SVG src={"../images/spotify_text_logo.svg"} />
+              <SpotifyLogo width={131} height={40} />
             </LogoWrapper>
           </LogoContainer>
           Home

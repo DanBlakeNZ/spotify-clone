@@ -3,9 +3,15 @@ import { createGlobalStyle } from "styled-components";
 import * as SpotifyFunctions from "../helpers/spotifyFunctions.js";
 import Login from "./Login";
 import Spotify from "./Spotify.js";
-import styleVariables from "../styles/styleVariables";
+import CircularBook from "../fonts/Circular-Book-400.woff2";
 
 const GlobalStyle = createGlobalStyle`
+@font-face {
+  font-family: 'CircularBook';
+  src: url('./dist/${CircularBook}') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
   *{
     margin:0;
     padding:0;
@@ -18,37 +24,36 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     scrollbar-color: hsla(0,0%,100%,.3) transparent;
     scrollbar-width: auto
-}
+  }
 
   body,button,input {
+    font-family: 'CircularBook';
     font-size: 14px;
+    font-weight: 400;
     line-height: 20px;
     letter-spacing: .015em;
-    font-weight: 400;
     color: #b3b3b3;
     text-transform: none
   }
 
   body {
-    @import url('../fonts/Circular-Book-400.woff2');
-    font-family: 'circular-book', sans-serif;
     min-width: 720px;
     display: flex;
     overscroll-behavior-y: none;
-    height: 100%
+    height: 100%;
   }
 
   a {
     color: #fff;
-    border-bottom: 1px solid transparent
+    border-bottom: 1px solid transparent;
   }
 
   a,a:focus,a:hover {
-      text-decoration: none
+      text-decoration: none;
   }
 
   a:focus,a:hover {
-      border-bottom-color: currentcolor
+      border-bottom-color: currentcolor;
 }
 
 `;
