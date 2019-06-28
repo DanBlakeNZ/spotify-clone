@@ -4,10 +4,6 @@ import NavBarItem from "./NavBarItem";
 import styleVariables from "../styles/styleVariables";
 import SpotifyLogo from "../images/spotify_text_logo.svg";
 
-import HomeIcon from "../images/icon_home.svg";
-import SearchIcon from "../images/icon_search.svg";
-import LibraryIcon from "../images/icon_library.svg";
-
 const NavBarWrapper = styled.div`
   position: absolute;
   background: ${styleVariables.spotifyBlack};
@@ -39,14 +35,9 @@ const LogoWrapper = styled.div`
   color: #ffffff;
 `;
 
-class NavigationBar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      location: "Home"
-    };
-  }
+const NavBarItems = [{ name: "Home" }, { name: "Search" }, { name: "Library" }];
 
+class NavigationBar extends Component {
   render() {
     return (
       <NavBarWrapper>
@@ -57,7 +48,9 @@ class NavigationBar extends Component {
             </LogoWrapper>
           </LogoContainer>
           <ul>
-            <NavBarItem />
+            {NavBarItems.map(item => (
+              <NavBarItem name={item.name} icon={item.icon} key={item.name} />
+            ))}
           </ul>
         </NavBar>
       </NavBarWrapper>

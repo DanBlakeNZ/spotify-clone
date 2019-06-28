@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import styleVariables from "../styles/styleVariables";
+
 import HomeIcon from "../images/icon_home.svg";
+import SearchIcon from "../images/icon_search.svg";
+import LibraryIcon from "../images/icon_library.svg";
 
 const NavBarItemContainer = styled.li`
   position: relative;
@@ -52,19 +55,24 @@ const NavBarLinkText = styled.span`
   min-width: 0;
 `;
 
-class NavBarItem extends Component {
-  render() {
-    return (
-      <NavBarItemContainer>
-        <NavBarLink>
-          <NavBarLinkItems>
-            <HomeIcon width={24} height={24} />
-            <NavBarLinkText>Home</NavBarLinkText>
-          </NavBarLinkItems>
-        </NavBarLink>
-      </NavBarItemContainer>
-    );
-  }
-}
+const setIcon = name =>
+  name === "Home" ? (
+    <HomeIcon width={24} height={24} />
+  ) : name === "Search" ? (
+    <SearchIcon width={24} height={24} />
+  ) : (
+    <LibraryIcon width={24} height={24} />
+  );
+
+const NavBarItem = ({ name, icon }) => (
+  <NavBarItemContainer>
+    <NavBarLink>
+      <NavBarLinkItems>
+        {setIcon(name)}
+        <NavBarLinkText>{name}</NavBarLinkText>
+      </NavBarLinkItems>
+    </NavBarLink>
+  </NavBarItemContainer>
+);
 
 export default NavBarItem;

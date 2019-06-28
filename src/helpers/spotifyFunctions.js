@@ -19,15 +19,10 @@ export function redirectUrlToSpotifyForLogin() {
   )}&scope=${encodeURIComponent(scopes.join(" "))}&response_type=token`;
 }
 
-export function checkUrlForSpotifyAccessToken() {
-  const params = getHashParams(),
-    accessToken = params.access_token;
-  if (!accessToken) {
-    return false;
-  }
-  return accessToken;
+export function setAccessToken(accessToken) {
+  spotifyApi.setAccessToken(accessToken);
+  localStorage.setItem("accessToken", accessToken);
 }
-
 function getHashParams() {
   // Helper function to parse the query string that spotify sends back when you log in
   let hashParams = {},
@@ -41,8 +36,17 @@ function getHashParams() {
   return hashParams;
 }
 
-export function setAccessToken(accessToken) {
-  spotifyApi.setAccessToken(accessToken);
+export function checkUrlForSpotifyAccessToken() {
+  const params = getHashParams(),
+    accessToken = params.access_token;
+  if (!accessToken) {
+    if (!localStorage.getItem("accessToken")) {
+      return false;
+    } else {
+      return localStorage.getItem("accessToken");
+    }
+  }
+  return accessToken;
 }
 
 export function getUserDetails() {

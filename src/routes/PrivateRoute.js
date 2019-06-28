@@ -4,7 +4,7 @@ import { checkUrlForSpotifyAccessToken } from "../helpers/spotifyFunctions.js";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const accessToken = checkUrlForSpotifyAccessToken();
-  console.log(accessToken);
+
   return (
     <Route
       {...rest}
