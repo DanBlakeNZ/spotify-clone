@@ -36,16 +36,7 @@ app.use(
 );
 
 app.get("/", function(req, res) {
-  if (req.session.views) {
-    req.session.views++;
-    res.setHeader("Content-Type", "text/html");
-    res.write("<p>views: " + req.session.views + "</p>");
-    res.write("<p>expires in: " + req.session.cookie.maxAge / 1000 + "s</p>");
-    res.end();
-  } else {
-    req.session.views = 1;
-    res.end("welcome to the session demo. refresh!");
-  }
+  res.send("Hello");
 });
 
 app.get("/login", function(req, res) {
@@ -67,7 +58,7 @@ app.get("/callback", function(req, res) {
 });
 
 app.get("/accesstoken", function(req, res) {
-  res.write("<p>accessToken: " + req.session.accessToken + "</p>");
+  console.log(req.session.accessToken);
   res.end();
 });
 
