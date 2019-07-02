@@ -2,14 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const querystring = require("querystring");
+const cors = require("cors");
 
+const app = express();
 const port = process.env.PORT || 3000;
 const client_id = process.env.CLIENT_ID;
 const redirect_uri = "http://localhost:3000/callback";
 
-const app = express();
-
-function generateSecret() {
+function secretGenerator() {
   return (
     Math.random()
       .toString(36)
@@ -20,20 +20,32 @@ function generateSecret() {
   );
 }
 
-function getAccessToken(req) {
-  return req.session.access_token;
-}
+app.set("trust proxy", true);
 
 app.use(
+  cors(),
   session({
-    secret: generateSecret(),
-    saveUninitialized: true,
-    resave: true
+    secret: secretGenerator(),
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: false,
+      maxAge: null
+    }
   })
 );
 
 app.get("/", function(req, res) {
-  res.send("Hello World!");
+  if (req.session.views) {
+    req.session.views++;
+    res.setHeader("Content-Type", "text/html");
+    res.write("<p>views: " + req.session.views + "</p>");
+    res.write("<p>expires in: " + req.session.cookie.maxAge / 1000 + "s</p>");
+    res.end();
+  } else {
+    req.session.views = 1;
+    res.end("welcome to the session demo. refresh!");
+  }
 });
 
 app.get("/login", function(req, res) {
@@ -50,13 +62,13 @@ app.get("/login", function(req, res) {
 });
 
 app.get("/callback", function(req, res) {
-  req.session.access_token = req.query.code;
-  res.redirect("http://localhost:8080");
+  req.session.accessToken = req.query.code || null;
+  res.redirect("http://localhost:3000/accesstoken");
 });
 
 app.get("/accesstoken", function(req, res) {
-  let accessToken = getAccessToken(req);
-  res.send(accessToken ? accessToken : "No Token");
+  res.write("<p>accessToken: " + req.session.accessToken + "</p>");
+  res.end();
 });
 
 app.listen(port, () => {
