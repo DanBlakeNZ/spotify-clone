@@ -1,28 +1,35 @@
-const path = require("path");
+require("dotenv").config();
 const express = require("express");
 const app = express();
+const querystring = require("querystring");
 
-const publicPath = path.join(__dirname, "../public");
 const port = process.env.PORT || 3000;
-const clientId = "410437905f1c4778b5e912f65cc0bfb5";
-const redirect_uri = "http://localhost:3000";
+const client_id = process.env.CLIENT_ID;
+const redirect_uri = "http://localhost:3000/callback";
 
-app.use(express.static(publicPath));
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(publicPath, "index.html"));
+app.get("/", function(req, res) {
+  res.send("Hello World!");
 });
 
 app.get("/login", function(req, res) {
-  var scopes = "user-read-private user-read-email";
+  let scope = "user-read-private user-read-email";
   res.redirect(
-    "https://accounts.spotify.com/authorize" +
-      "?response_type=code" +
-      "&client_id=" +
-      clientId +
-      (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
-      "&redirect_uri=" +
-      encodeURIComponent(redirect_uri)
+    "https://accounts.spotify.com/authorize?" +
+      querystring.stringify({
+        response_type: "code",
+        client_id: client_id,
+        scope: scope,
+        redirect_uri: redirect_uri
+      })
+  );
+});
+
+app.get("/callback", function(req, res) {
+  res.redirect(
+    "http://localhost:8080/?" +
+      querystring.stringify({
+        access_token: req.query.code || null
+      })
   );
 });
 
