@@ -1,4 +1,5 @@
 const path = require("path");
+const Dotenv = require("dotenv-webpack");
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
@@ -57,13 +58,12 @@ module.exports = env => {
         }
       ]
     },
+    plugins: [new Dotenv()],
     devtool: isProduction ? "source-map" : "inline-source-map",
     devServer: {
       contentBase: path.join(__dirname, "public"),
       publicPath: "/dist/",
       historyApiFallback: true,
-      compress: true,
-      port: 9000,
       writeToDisk: true
     }
   };
