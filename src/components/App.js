@@ -4,7 +4,11 @@ import Cookies from "js-cookie";
 class App extends Component {
   componentDidMount() {
     let cookies = Cookies.get();
-    console.log(cookies);
+    let refreshToken = cookies.refreshToken;
+
+    fetch(`http://localhost:3000/refresh_token?refreshToken=${refreshToken}`)
+      .then(response => response.json())
+      .then(data => console.log(data));
   }
 
   render() {

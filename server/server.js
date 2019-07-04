@@ -63,7 +63,7 @@ app.get("/callback", function(req, res) {
       headers: {
         Authorization:
           "Basic " +
-          new Buffer(client_id + ":" + client_secret).toString("base64")
+          new Buffer.from(client_id + ":" + client_secret).toString("base64")
       },
       json: true
     };
@@ -85,6 +85,32 @@ app.get("/callback", function(req, res) {
       }
     });
   }
+});
+
+app.get("/refresh_token", function(req, res) {
+  let refresh_token = req.query.refreshToken;
+  let authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    headers: {
+      Authorization:
+        "Basic " +
+        new Buffer.from(client_id + ":" + client_secret).toString("base64")
+    },
+    form: {
+      grant_type: "refresh_token",
+      refresh_token: refresh_token
+    },
+    json: true
+  };
+
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      let access_token = body.access_token;
+      res.send({
+        access_token: access_token
+      });
+    }
+  });
 });
 
 app.listen(port, () => {
