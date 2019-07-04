@@ -12,11 +12,10 @@ const client_secret = process.env.CLIENT_SECRET;
 const redirect_uri = "http://localhost:3000/callback";
 
 const generateRandomString = function(length) {
-  var text = "";
-  var possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let text = "",
+    possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (var i = 0; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
@@ -27,8 +26,8 @@ const stateKey = "spotify_auth_state";
 app.use(cors(), cookieParser());
 
 app.get("/login", function(req, res) {
-  let state = generateRandomString(16);
-  let scope = "user-read-private user-read-email";
+  let state = generateRandomString(16),
+    scope = "user-read-private user-read-email";
 
   res.cookie(stateKey, state);
 
@@ -45,15 +44,15 @@ app.get("/login", function(req, res) {
 });
 
 app.get("/callback", function(req, res) {
-  var code = req.query.code || null;
-  var state = req.query.state || null;
-  var storedState = req.cookies ? req.cookies[stateKey] : null;
+  let code = req.query.code || null,
+    state = req.query.state || null,
+    storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
-    console.log("State mismatch");
+    console.log("State mismatch"); //TODO: Handle this error
   } else {
     res.clearCookie(stateKey);
-    var authOptions = {
+    let authOptions = {
       url: "https://accounts.spotify.com/api/token",
       form: {
         code: code,
@@ -70,7 +69,7 @@ app.get("/callback", function(req, res) {
 
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
-        var access_token = body.access_token,
+        let access_token = body.access_token,
           refresh_token = body.refresh_token,
           expires_in = body.expires_in;
 
@@ -81,7 +80,7 @@ app.get("/callback", function(req, res) {
 
         res.redirect("http://localhost:8080");
       } else {
-        console.log(error);
+        console.log(error); //TODO: Handle this error
       }
     });
   }
@@ -105,10 +104,14 @@ app.get("/refresh_token", function(req, res) {
 
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-      let access_token = body.access_token;
+      let access_token = body.access_token,
+        refresh_token = body.refresh_token || null;
       res.send({
-        access_token: access_token
+        access_token: access_token,
+        refresh_token: refresh_token
       });
+    } else {
+      console.log(error); //TODO: Handle this error
     }
   });
 });
