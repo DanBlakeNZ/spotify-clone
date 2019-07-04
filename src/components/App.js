@@ -39,15 +39,10 @@ class App extends Component {
   }
 
   handleLogOut = () => {
-    var win = window.open(
-      "https://www.spotify.com/logout",
-      "_blank",
-      "width=5",
-      "height=10"
-    );
-    setTimeout(function() {
+    var win = window.open("https://accounts.spotify.com/en/logout", "_blank", "width=520, height=500");
+    setTimeout(() => {
       win.close();
-    }, 500);
+    }, 3000);
     Cookies.set("refreshToken", "");
     Cookies.set("accessToken", "");
     this.setState({
