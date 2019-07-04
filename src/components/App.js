@@ -1,14 +1,10 @@
 import React, { Component } from "react";
+import Cookies from "js-cookie";
 
 class App extends Component {
   componentDidMount() {
-    fetch("http://localhost:3000/accesstoken", {
-      method: "GET"
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(console.log);
+    let cookies = Cookies.get();
+    console.log(cookies.accessToken);
   }
 
   render() {
