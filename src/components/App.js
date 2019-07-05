@@ -11,45 +11,45 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    let { refreshToken, accessToken } = Cookies.get();
+  // componentDidMount() {
+  //   let { refreshToken, accessToken } = Cookies.get();
 
-    if ((refreshToken, accessToken)) {
-      this.setState({
-        accessToken: accessToken,
-        refreshToken: refreshToken
-      });
-    }
+  //   if ((refreshToken, accessToken)) {
+  //     this.setState({
+  //       accessToken: accessToken,
+  //       refreshToken: refreshToken
+  //     });
+  //   }
 
-    if (refreshToken) {
-      fetch(`http://localhost:3000/refresh_token?refreshToken=${refreshToken}`)
-        .then(response => response.json())
-        .then(data => {
-          this.setState({
-            accessToken: data.access_token,
-            refreshToken: refreshToken,
-            loading: false
-          });
-        });
-    } else {
-      this.setState({
-        loading: false
-      });
-    }
-  }
+  //   if (refreshToken) {
+  //     fetch(`http://localhost:3000/refresh_token?refreshToken=${refreshToken}`)
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         this.setState({
+  //           accessToken: data.access_token,
+  //           refreshToken: refreshToken,
+  //           loading: false
+  //         });
+  //       });
+  //   } else {
+  //     this.setState({
+  //       loading: false
+  //     });
+  //   }
+  // }
 
-  handleLogOut = () => {
-    var win = window.open("https://accounts.spotify.com/en/logout", "_blank", "width=520, height=500");
-    setTimeout(() => {
-      win.close();
-    }, 3000);
-    Cookies.set("refreshToken", "");
-    Cookies.set("accessToken", "");
-    this.setState({
-      accessToken: null,
-      refreshToken: null
-    });
-  };
+  // handleLogOut = () => {
+  //   var win = window.open("https://accounts.spotify.com/en/logout", "_blank", "width=520, height=500");
+  //   setTimeout(() => {
+  //     win.close();
+  //   }, 3000);
+  //   Cookies.set("refreshToken", "");
+  //   Cookies.set("accessToken", "");
+  //   this.setState({
+  //     accessToken: null,
+  //     refreshToken: null
+  //   });
+  // };
 
   render() {
     return (
