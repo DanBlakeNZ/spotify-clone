@@ -5,6 +5,8 @@ import "normalize.css";
 import NotFound from "./components/NotFound";
 import App from "./components/App";
 
+socket = io.listen(process.env.PORT);
+
 const routing = (
   <Router>
     <div>
