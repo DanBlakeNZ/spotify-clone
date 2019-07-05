@@ -12,6 +12,7 @@
     "start": "node server/server.js",
     "start-dev": "nodemon server/server.js",
     "dev-server": "webpack-dev-server",
+    "heroku-postbuild": "yarn run build:prod",
     "lint": "eslint src/**/*.js src/**/*.jsx"
   },
   "dependencies": {
